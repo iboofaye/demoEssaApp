@@ -41,8 +41,8 @@
                         <groupId>org.projectlombok</groupId>
                         <artifactId>lombok</artifactId>
                         <optional>true</optional>
-                        <type>jar</type>
                         <version>1.18.24</version>
+                        <type>jar</type>
                 </dependency>
     
 		<dependency>

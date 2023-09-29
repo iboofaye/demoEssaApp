@@ -4,7 +4,9 @@
  */
 package com.example.demoEssaApp.controller.auth;
 
+import com.example.demoEssaApp.controller.form.SignupForm;
 import com.example.demoEssaApp.service.UserApplicationService;
+import java.util.Locale;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,13 +15,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.ModelAttribute;
 /**
  *
  * @author LENOVO
  */
 @Controller
 @RequestMapping ("/user" )
+@Slf4j
 public class SignUpController {
     @Autowired
     private UserApplicationService userApplicationService ;
@@ -37,20 +41,24 @@ public class SignUpController {
     
     /** Display the user signup screen
      * @param model
+     * @param locale
+     * @param form
      * @return  */
     @GetMapping ("/signupmessage" )
-    public String getSignupMessage(Model model ) {
+    public String getSignupMessage(Model model, Locale locale, @ModelAttribute SignupForm form) {
         // Get gender
-        Map<String, Integer> genderMap = userApplicationService.getGenderMapMessage();
+        Map<String, Integer> genderMap = userApplicationService.getGenderMapMessage(locale);
         model.addAttribute("genderMap" , genderMap );
         // Transition to user signup screen
-        return "user/signupmessage" ;
+        return "user/signupmessage";
     }
     /** User signup process
+     * @param form
      * @return  */
     @PostMapping ("/signup" )
-    public String postSignup() {
+    public String postSignup(@ModelAttribute SignupForm form ) {
         // Redirect to login screen
-        return "redirect:/login" ;
+        log.info(form.toString());
+        return "redirect:/login";
     }
 }
