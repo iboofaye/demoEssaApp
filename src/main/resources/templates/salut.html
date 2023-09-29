@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!-- 1. Creation de la page avec le moteur de template thymleaf-->
+<html xmlns:th ="http://www.thymeleaf.org" >
+<head>
+<meta charset ="UTF-8" ></meta>
+<title> Salutations !!</title>
+</head>
+<body>
+    <!-- 2. Test affichage html avec indexation du controller [SalutationController] -->
+    <h1>Bonjour et bienvenue sur ESSADEMO </h1>
+    <!-- 3. Passing Values from One Screen to Another -->
+    <form method ="post" action ="/salut" >
+        Enter: <input type ="text" name ="text1" />
+        <input type ="submit" value ="click" />
+    </form>
+    <br/>
+    <form method ="post" action ="/salut/db" >
+        Employee ID:<input type ="text" name ="text2" th:value ="${text2_value}" />
+        <input type ="submit" value ="Click" />
+    </form>
+    </body>
+</html>
