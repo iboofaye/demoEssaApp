@@ -22,21 +22,21 @@ import org.hibernate.validator.constraints.Length;
 
 @Data
 public class SignupForm {
-    @NotBlank(message = "{require_check}" )
-    @Email
+    @NotBlank(groups = ValidGroup1.class )
+    @Email(groups = ValidGroup2.class )
     private String userId ;
-    @NotBlank
-    @Length (min = 4, max = 100)
-    @Pattern (regexp = "^[a-zA-Z0-9]+$" )
+    @NotBlank(groups = ValidGroup1.class )
+    @Length(min = 4, max = 100, groups = ValidGroup2.class )
+    @Pattern(regexp = "^[a-zA-Z0-9]+$" , groups = ValidGroup2.class )
     private String password ;
-    @NotBlank
+    @NotBlank (groups = ValidGroup1.class )
     private String userName ;
     @DateTimeFormat (pattern = "dd/MM/yyyy" )
-    @NotNull
+    @NotNull(groups = ValidGroup1.class )
     private Date birthday ;
-    @Min (20)
-    @Max (100)
+    @Min(value = 20, groups = ValidGroup2.class )
+    @Max(value = 100, groups = ValidGroup2.class )
     private Integer age ;
-    @NotNull
+    @NotNull (groups = ValidGroup1.class )
     private Integer gender ;
 }

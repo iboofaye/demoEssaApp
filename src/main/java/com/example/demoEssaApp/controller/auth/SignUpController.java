@@ -4,6 +4,7 @@
  */
 package com.example.demoEssaApp.controller.auth;
 
+import com.example.demoEssaApp.controller.form.GroupOrder;
 import com.example.demoEssaApp.controller.form.SignupForm;
 import com.example.demoEssaApp.service.UserApplicationService;
 import java.util.Locale;
@@ -61,7 +62,7 @@ public class SignUpController {
      * @param bindingResult
      * @return  */
     @PostMapping ("/signup" )
-    public String postSignup(Model model , Locale locale , @ModelAttribute @Validated SignupForm form , BindingResult bindingResult ) {
+    public String postSignup(Model model , Locale locale , @ModelAttribute @Validated(GroupOrder.class) SignupForm form , BindingResult bindingResult ) {
         // Input check result
         if (bindingResult.hasErrors()) {
             // NG: Return to the user signup screen
