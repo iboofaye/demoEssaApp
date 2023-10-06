@@ -22,7 +22,7 @@ import org.hibernate.validator.constraints.Length;
 
 @Data
 public class SignupForm {
-    @NotBlank
+    @NotBlank(message = "{require_check}" )
     @Email
     private String userId ;
     @NotBlank
