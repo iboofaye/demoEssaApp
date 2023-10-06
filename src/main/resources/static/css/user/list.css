@@ -1,0 +1,16 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 6 oct. 2023, 13:51:32
+    Author     : LENOVO
+*/
+.header {
+padding-top : 1rem!important ;
+padding-bottom : .5rem!important ;
+margin-bottom : 1rem!important ;
+}
+.th-width {
+width : 200px ;
+}

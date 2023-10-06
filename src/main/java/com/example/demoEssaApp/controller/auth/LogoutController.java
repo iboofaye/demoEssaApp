@@ -4,28 +4,22 @@
  */
 package com.example.demoEssaApp.controller.auth;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  *
  * @author LENOVO
  */
-
 @Controller
-public class LoginController {
-    /** Display login screen
+@Slf4j
+public class LogoutController {
+/** Redirect to login screen
      * @return  */
-    @GetMapping ("/login" )
-    public String getLogin() {
-        return "login/login" ;
-    }
-    
-    /** Redirect to user list screen
-     * @return  */
-    @PostMapping ("/login" )
-    public String postLogin() {
-    return "redirect:/user/list" ;
-    }
+@PostMapping ("/logout" )
+public String postLogout() {
+log .info("Logout" );
+return "redirect:/login" ;
+}
 }
