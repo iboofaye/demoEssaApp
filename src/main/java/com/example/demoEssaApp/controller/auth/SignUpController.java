@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 /**
  *
@@ -31,7 +32,7 @@ public class SignUpController {
     /** Display the user signup screen
      * @param model
      * @return  */
-    @GetMapping ("/signup" )
+    @GetMapping ("/signupsample" )
     public String getSignup(Model model ) {
         // Get gender
         Map<String, Integer> genderMap = userApplicationService.getGenderMap();
@@ -45,7 +46,7 @@ public class SignUpController {
      * @param locale
      * @param form
      * @return  */
-    @GetMapping ("/signupmessage" )
+    @GetMapping ("/signup" )
     public String getSignupMessage(Model model, Locale locale, @ModelAttribute SignupForm form) {
         // Get gender
         Map<String, Integer> genderMap = userApplicationService.getGenderMapMessage(locale);
@@ -60,7 +61,7 @@ public class SignUpController {
      * @param bindingResult
      * @return  */
     @PostMapping ("/signup" )
-    public String postSignup(Model model , Locale locale , @ModelAttribute SignupForm form , BindingResult bindingResult ) {
+    public String postSignup(Model model , Locale locale , @ModelAttribute @Validated SignupForm form , BindingResult bindingResult ) {
         // Input check result
         if (bindingResult.hasErrors()) {
             // NG: Return to the user signup screen
