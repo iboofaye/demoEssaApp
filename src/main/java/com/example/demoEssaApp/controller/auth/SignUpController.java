@@ -6,6 +6,9 @@ package com.example.demoEssaApp.controller.auth;
 
 import com.example.demoEssaApp.controller.form.GroupOrder;
 import com.example.demoEssaApp.controller.form.SignupForm;
+import com.example.demoEssaApp.domain.user.model.MUser;
+import com.example.demoEssaApp.domain.user.service.UserService;
+import com.example.demoEssaApp.model.AppUser;
 import com.example.demoEssaApp.service.UserApplicationService;
 import java.util.Locale;
 import java.util.Map;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,6 +34,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 public class SignUpController {
     @Autowired
     private UserApplicationService userApplicationService ;
+    @Autowired
+    private UserService userService ;
+    @Autowired
+    private ModelMapper modelMapper ;
+
     /** Display the user signup screen
      * @param model
      * @return  */
@@ -70,6 +79,10 @@ public class SignUpController {
         }
         // Redirect to login screen
         log.info(form.toString());
+        // Convert form to MUser class
+        //MUser user = modelMapper.map(form , MUser.class );
+        // user signup
+        userService.signup(form);
         return "redirect:/login";
     }
 }

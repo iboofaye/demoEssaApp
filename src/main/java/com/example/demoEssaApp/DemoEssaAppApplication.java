@@ -3,13 +3,17 @@ package com.example.demoEssaApp;
 import com.example.demoEssaApp.model.AppUser;
 import com.example.demoEssaApp.model.Personne;
 import com.example.demoEssaApp.repository.PersonneRepository;
+import com.example.demoEssaApp.mapper.UserMapper;
 import com.example.demoEssaApp.repository.UserRepository;
+import org.apache.ibatis.annotations.Mapper;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
+//@MapperScan("com.example.demoEssaApp")
 public class DemoEssaAppApplication {
     
     // private static final Logger log = LoggerFactory.getLogger(DemoEssaAppApplication.class);
