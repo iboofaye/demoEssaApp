@@ -11,10 +11,12 @@ import com.example.demoEssaApp.mapper.UserMapper;
 import com.example.demoEssaApp.model.AppUser;
 import com.example.demoEssaApp.repository.MUserRepository;
 import java.util.List;
+import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author LENOVO
  */
 @Service
+@Transactional
 public class UserServiceImpl implements UserService{
     //@Autowired
     //private UserMapper mapper;
@@ -29,7 +32,6 @@ public class UserServiceImpl implements UserService{
     private MUserRepository muserRepository;
     
     /** User signup
-     * @param usr
      */
     
     @Override
@@ -52,8 +54,32 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<MUser> getUsers() {
-        return (List<MUser>) muserRepository.findAll();
+        return (List<MUser>)muserRepository.findAll();
     }
     
+    /** Get user(1record) */
+    @Override
+    public MUser getUserOne(String userId ) {
+        //return muserRepository.findOne(userId);
+        return muserRepository.findByUserId(userId);
+    }
+    
+        /** Update user */
+    @Override
+    public void updateUserOne(String userId ,String password ,String userName ) {
+        MUser usr = new MUser();
+        usr = muserRepository.findByUserId(userId);
+        usr.setUserId(userId);
+        usr.setPassword(password);
+        usr.setUserName(userName);
+        muserRepository.save(usr);
+    }
+    /** Delete user */
+    @Override
+    public void deleteUserOne(String userId ) {
+        MUser usr = new MUser();
+        usr = muserRepository.findByUserId(userId);
+        muserRepository.delete(usr);
+    }
     
 }

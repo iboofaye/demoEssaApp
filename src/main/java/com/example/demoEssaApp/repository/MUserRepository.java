@@ -5,13 +5,19 @@
 package com.example.demoEssaApp.repository;
 
 import com.example.demoEssaApp.domain.user.model.MUser;
+import java.util.Optional;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author LENOVO
  */
-public interface MUserRepository extends CrudRepository<MUser, Long>{
-    
+@Repository
+public interface MUserRepository extends JpaRepository<MUser, Long>{
+
+    //public MUser findOne(String userId);
+    public MUser findByUserId(String userId); 
 }

@@ -19,7 +19,7 @@ import lombok.Data;
 @Entity
 @Data
 public class MUser implements Serializable{
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String userId;
     private String password;
