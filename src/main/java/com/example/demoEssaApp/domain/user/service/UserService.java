@@ -32,5 +32,13 @@ public void updateUserOne(String userId ,String password ,String userName );
 /** Delete user
      * @param userId */
 public void deleteUserOne(String userId );
+/** Get user
+     * @param userId
+     * @return  */
+public List<MUser> getUsersByUserId(String userId );
+/** Get user
+     * @param userName
+     * @return  */
+public List<MUser> getUsersByUserName(String userName);
 
 }

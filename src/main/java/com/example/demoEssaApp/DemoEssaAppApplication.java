@@ -1,16 +1,22 @@
 package com.example.demoEssaApp;
 
+import com.example.demoEssaApp.domain.user.model.MUser;
 import com.example.demoEssaApp.model.AppUser;
 import com.example.demoEssaApp.model.Personne;
 import com.example.demoEssaApp.repository.PersonneRepository;
 import com.example.demoEssaApp.mapper.UserMapper;
+import com.example.demoEssaApp.repository.MUserRepository;
 import com.example.demoEssaApp.repository.UserRepository;
+import static java.lang.Math.log;
+import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import lombok.extern.slf4j.Slf4j;
+import static org.hibernate.internal.CoreLogging.logger;
 
 @SpringBootApplication
 //@MapperScan("com.example.demoEssaApp")
@@ -68,5 +74,20 @@ public class DemoEssaAppApplication {
         pr.save(new Personne("Ousmane", "Fall", 10));
     };
   }*/
+        
+    @Bean
+  public CommandLineRunner demo(MUserRepository repository) {
+    return (args) -> {
+      // save a few users
+      repository.save(new MUser("fee@hg.dn", "passer123", "amy", null, 22, 1, 1, "Admin"));
+      repository.save(new MUser("tres@hg.sn", "passer123", "bitz", null, 22, 1, 1, "Admin"));
+      repository.save(new MUser("igaye@essa.sn", "passer123", "issa", null, 22, 1, 1, "Admin"));
+      repository.save(new MUser("mdiouf@essa.sn", "passer123", "michelle", null, 22, 1, 1, "Admin"));
+      repository.save(new MUser("fciss@essa.sn", "passer123", "fallou", null, 22, 1, 1, "Admin"));
+      repository.save(new MUser("mdiouf@essa.sn", "passer123", "fallou", null, 22, 1, 1, "Admin"));
+      repository.save(new MUser("mdiouf@essa.sn", "passer123", "amy", null, 22, 1, 1, "Admin"));
+
+    };
+  }
 
 }

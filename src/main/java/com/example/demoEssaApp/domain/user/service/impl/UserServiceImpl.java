@@ -81,5 +81,16 @@ public class UserServiceImpl implements UserService{
         usr = muserRepository.findByUserId(userId);
         muserRepository.delete(usr);
     }
+    /** Get users by userid */
+    @Override
+    public List<MUser> getUsersByUserId(String userId ) {
+        return muserRepository.findByUserIdContains(userId);
+    }
+    
+    /** Get users by username */
+    @Override
+    public List<MUser> getUsersByUserName(String userName ) {
+        return muserRepository.findByUserNameContains(userName);
+    }
     
 }
