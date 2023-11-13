@@ -8,6 +8,7 @@ import com.example.demoEssaApp.controller.form.UserDetailForm;
 import com.example.demoEssaApp.domain.user.model.MUser;
 import com.example.demoEssaApp.domain.user.service.UserService;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping ("/user")
+@Slf4j
 public class UserDetailController {
     @Autowired
     private UserService userService ;
@@ -63,10 +65,14 @@ public class UserDetailController {
      * @return  */
     @PostMapping (value = "/detail" , params = "update" )
     public String updateUser(UserDetailForm form , Model model ) {
-        // Update user
-        userService.updateUserOne(form.getUserId(),
-        form.getPassword(),
-        form.getUserName());
+        try {
+            // Update user
+            userService.updateUserOne(form.getUserId(),
+            form.getPassword(),
+            form.getUserName());
+        } catch (Exception e) {
+            log.error("Error in user update", e);
+        }
         // Redirect to user list screen
         return "redirect:/user/list" ;
     }

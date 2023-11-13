@@ -77,6 +77,7 @@ public class UserServiceImpl implements UserService{
     }
     
         /** Update user */
+    @Transactional
     @Override
     public void updateUserOne(String userId ,String password ,String userName ) {
         MUser usr = new MUser();
@@ -85,6 +86,9 @@ public class UserServiceImpl implements UserService{
         usr.setPassword(password);
         usr.setUserName(userName);
         muserRepository.save(usr);
+        
+        // Raise an exception
+        int i = 1 / 0;
     }
     /** Delete user */
     @Override
