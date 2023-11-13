@@ -41,4 +41,6 @@ public List<MUser> getUsersByUserId(String userId );
      * @return  */
 public List<MUser> getUsersByUserName(String userName);
 
+public void addUserToDepartment(String username, String departmentName);
+
 }

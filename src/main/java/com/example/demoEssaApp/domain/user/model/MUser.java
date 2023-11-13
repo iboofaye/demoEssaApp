@@ -5,9 +5,13 @@
 package com.example.demoEssaApp.domain.user.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
@@ -27,19 +31,34 @@ public class MUser implements Serializable{
     private Date birthday;
     private Integer age;
     private Integer gender;
-    private Integer departmentId;
+    //private Integer departmentId;
     private String role;
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department ;
 
-    public MUser(String userId, String password, String userName, Date birthday, Integer age, Integer gender, Integer departmentId, String role) {
+    public MUser(String userId, String password, String userName, Date birthday, Integer age, Integer gender, String role) {
         this.userId = userId;
         this.password = password;
         this.userName = userName;
         this.birthday = birthday;
         this.age = age;
         this.gender = gender;
-        this.departmentId = departmentId;
+        //this.departmentId = departmentId;
         this.role = role;
     }
+
+    public MUser(String userId, String password, String userName, Date birthday, Integer age, Integer gender, String role, Department department) {
+        this.userId = userId;
+        this.password = password;
+        this.userName = userName;
+        this.birthday = birthday;
+        this.age = age;
+        this.gender = gender;
+        this.role = role;
+        this.department = department;
+    }
+    
 
     public MUser() {
     }

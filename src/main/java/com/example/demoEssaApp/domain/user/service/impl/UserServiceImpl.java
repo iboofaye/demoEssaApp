@@ -5,10 +5,12 @@
 package com.example.demoEssaApp.domain.user.service.impl;
 
 import com.example.demoEssaApp.controller.form.SignupForm;
+import com.example.demoEssaApp.domain.user.model.Department;
 import com.example.demoEssaApp.domain.user.model.MUser;
 import com.example.demoEssaApp.domain.user.service.UserService;
 import com.example.demoEssaApp.mapper.UserMapper;
 import com.example.demoEssaApp.model.AppUser;
+import com.example.demoEssaApp.repository.DepartmentRepository;
 import com.example.demoEssaApp.repository.MUserRepository;
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +33,9 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private MUserRepository muserRepository;
     
+    @Autowired
+    private DepartmentRepository depRepository;
+    
     /** User signup
      */
     
@@ -44,12 +49,14 @@ public class UserServiceImpl implements UserService{
         muser.setPassword(form.getPassword());
         muser.setUserName(form.getUserName());
         //log.info(muser.toString());
-        muser.setDepartmentId(1);
+        //muser.setDepartmentId(1);
         muser.setRole("ROLE_GENERAL");
         //System.out.println(usr.toString());
         muserRepository.save(muser);
         //log.info("Saved !!");
         //mapper.insertOne(user);
+        //Add department name
+        addUserToDepartment(form.getUserId(), "RH");
     }
 
     @Override
@@ -92,5 +99,14 @@ public class UserServiceImpl implements UserService{
     public List<MUser> getUsersByUserName(String userName ) {
         return muserRepository.findByUserNameContains(userName);
     }
+
+    @Override
+    public void addUserToDepartment(String userId, String departmentName) {
+        MUser mUser = muserRepository.findByUserId(userId);
+        Department dep = depRepository.findByDepartmentName(departmentName);
+        mUser.setDepartment(dep);
+        muserRepository.save(mUser);
+    }
+    
     
 }

@@ -1,10 +1,12 @@
 package com.example.demoEssaApp;
 
+import com.example.demoEssaApp.domain.user.model.Department;
 import com.example.demoEssaApp.domain.user.model.MUser;
 import com.example.demoEssaApp.model.AppUser;
 import com.example.demoEssaApp.model.Personne;
 import com.example.demoEssaApp.repository.PersonneRepository;
 import com.example.demoEssaApp.mapper.UserMapper;
+import com.example.demoEssaApp.repository.DepartmentRepository;
 import com.example.demoEssaApp.repository.MUserRepository;
 import com.example.demoEssaApp.repository.UserRepository;
 import static java.lang.Math.log;
@@ -74,18 +76,30 @@ public class DemoEssaAppApplication {
         pr.save(new Personne("Ousmane", "Fall", 10));
     };
   }*/
-        
+     @Bean
+  public CommandLineRunner departementdemo(DepartmentRepository repository) {
+    return (args) -> {
+      // save a few department
+      repository.save(new Department("Info"));
+      repository.save(new Department("RH"));
+      repository.save(new Department("Finance"));
+      repository.save(new Department("Com"));
+      
+    };
+  }   
     @Bean
-  public CommandLineRunner demo(MUserRepository repository) {
+  public CommandLineRunner demo(MUserRepository repository, DepartmentRepository depRepository) {
     return (args) -> {
       // save a few users
-      repository.save(new MUser("fee@hg.dn", "passer123", "amy", null, 22, 1, 1, "Admin"));
-      repository.save(new MUser("tres@hg.sn", "passer123", "bitz", null, 22, 1, 1, "Admin"));
-      repository.save(new MUser("igaye@essa.sn", "passer123", "issa", null, 22, 1, 1, "Admin"));
-      repository.save(new MUser("mdiouf@essa.sn", "passer123", "michelle", null, 22, 1, 1, "Admin"));
-      repository.save(new MUser("fciss@essa.sn", "passer123", "fallou", null, 22, 1, 1, "Admin"));
-      repository.save(new MUser("mdiouf@essa.sn", "passer123", "fallou", null, 22, 1, 1, "Admin"));
-      repository.save(new MUser("mdiouf@essa.sn", "passer123", "amy", null, 22, 1, 1, "Admin"));
+      Department dep = depRepository.findByDepartmentName("RH");
+      repository.save(new MUser("fee@hg.dn", "passer123", "amy", null, 22,1,"Admin", dep));
+      Department dep1 = depRepository.findByDepartmentName("Info");
+      repository.save(new MUser("tres@hg.sn", "passer123", "bitz", null, 22, 1,"Admin", dep1));
+      repository.save(new MUser("igaye@essa.sn", "passer123", "issa", null, 22,  1,"Admin"));
+      repository.save(new MUser("mdiouf@essa.sn", "passer123", "michelle", null, 22,  1,"Admin"));
+      repository.save(new MUser("fciss@essa.sn", "passer123", "fallou", null, 22, 1, "Admin"));
+      repository.save(new MUser("mdiouf@essa.sn", "passer123", "fallou", null, 22, 1, "Admin"));
+      repository.save(new MUser("mdiouf@essa.sn", "passer123", "amy", null, 22,  1, "Admin"));
 
     };
   }

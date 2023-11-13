@@ -44,8 +44,10 @@ public class UserDetailController {
     form.setGender(user.getGender());
     form.setUserId(user.getUserId()); 
     form.setUserName(user.getUserName());
+    form.setDepartment(user.getDepartment());
     //form = modelMapper.map(user , UserDetailForm.class );
     // Registered in Model
+    System.out.println(form.toString());
     model.addAttribute("userDetailForm" , form );
     // Display user details screen
     return "user/detail";
