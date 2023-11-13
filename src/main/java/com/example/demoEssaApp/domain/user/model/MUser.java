@@ -14,6 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import lombok.Data;
 
 /**
@@ -36,6 +37,8 @@ public class MUser implements Serializable{
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department ;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Salary> salaryList ;
 
     public MUser(String userId, String password, String userName, Date birthday, Integer age, Integer gender, String role) {
         this.userId = userId;

@@ -7,6 +7,7 @@ package com.example.demoEssaApp.controller;
 import com.example.demoEssaApp.controller.form.UserDetailForm;
 import com.example.demoEssaApp.domain.user.model.MUser;
 import com.example.demoEssaApp.domain.user.service.UserService;
+import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,7 +37,7 @@ public class UserDetailController {
     @GetMapping("/detail/{userId:.+}" )
     public String getUser(UserDetailForm form , Model model ,@PathVariable("userId" ) String userId ) {
     // Get user
-    MUser user = userService.getUserOne(userId );
+    MUser user = userService.getUserOne(userId);
     user.setPassword(null);
     // Get user
     form.setAge(user.getAge());
@@ -46,8 +47,11 @@ public class UserDetailController {
     form.setUserName(user.getUserName());
     form.setDepartment(user.getDepartment());
     //form = modelMapper.map(user , UserDetailForm.class );
+    form.setSalaryList(user.getSalaryList());
     // Registered in Model
-    System.out.println(form.toString());
+    System.out.println("--------------------TesT FORM ----------------------------");
+    //System.out.println(form.toString());
+    System.out.println("--------------------TesT FORM ----------------------------");
     model.addAttribute("userDetailForm" , form );
     // Display user details screen
     return "user/detail";

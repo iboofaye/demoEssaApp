@@ -43,4 +43,6 @@ public List<MUser> getUsersByUserName(String userName);
 
 public void addUserToDepartment(String username, String departmentName);
 
+public void addSalaryToUser(String salaryId, String userId);
 }
+

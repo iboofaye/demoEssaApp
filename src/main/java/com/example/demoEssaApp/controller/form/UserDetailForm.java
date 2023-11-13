@@ -5,7 +5,9 @@
 package com.example.demoEssaApp.controller.form;
 
 import com.example.demoEssaApp.domain.user.model.Department;
+import com.example.demoEssaApp.domain.user.model.Salary;
 import java.util.Date;
+import java.util.List;
 import lombok.Data;
 
 /**
@@ -21,4 +23,5 @@ private Date birthday ;
 private Integer age ;
 private Integer gender ;
 private Department department;
+private List<Salary> salaryList;
 }

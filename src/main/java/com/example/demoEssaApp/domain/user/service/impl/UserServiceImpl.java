@@ -7,11 +7,13 @@ package com.example.demoEssaApp.domain.user.service.impl;
 import com.example.demoEssaApp.controller.form.SignupForm;
 import com.example.demoEssaApp.domain.user.model.Department;
 import com.example.demoEssaApp.domain.user.model.MUser;
+import com.example.demoEssaApp.domain.user.model.Salary;
 import com.example.demoEssaApp.domain.user.service.UserService;
 import com.example.demoEssaApp.mapper.UserMapper;
 import com.example.demoEssaApp.model.AppUser;
 import com.example.demoEssaApp.repository.DepartmentRepository;
 import com.example.demoEssaApp.repository.MUserRepository;
+import com.example.demoEssaApp.repository.SalaryRepository;
 import java.util.List;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +37,9 @@ public class UserServiceImpl implements UserService{
     
     @Autowired
     private DepartmentRepository depRepository;
+    
+    @Autowired
+    private SalaryRepository sRepository;
     
     /** User signup
      */
@@ -107,6 +112,12 @@ public class UserServiceImpl implements UserService{
         mUser.setDepartment(dep);
         muserRepository.save(mUser);
     }
-    
-    
+
+    @Override
+    public void addSalaryToUser(String salaryId, String userId) {
+        Salary salary = sRepository.findBySalaryId(salaryId);
+        MUser usr = muserRepository.findByUserId(userId);
+        salary.setUser(usr);
+        sRepository.save(salary);
+    }
 }
