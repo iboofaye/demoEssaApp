@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 @Slf4j
 public class LogoutController {
-/** Redirect to login screen
-     * @return  */
-@PostMapping ("/logout" )
-public String postLogout() {
-log .info("Logout" );
-return "redirect:/login" ;
-}
+     /**
+      * Redirect to login screen
+      * 
+      * @return
+      */
+     @PostMapping("/logout")
+     public String postLogout() {
+          log.info("Logout");
+          return "redirect:/login";
+     }
 }
