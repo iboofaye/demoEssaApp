@@ -18,6 +18,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -32,59 +34,67 @@ public class SecurityConfig {
 	@Bean
 	public WebSecurityCustomizer webSecurityCustomizer() {
 		return (web) -> web
-							.ignoring()
-								//.requestMatchers("/ignore1", "/ignore2");
-								.requestMatchers("/webjars/**")
-								.requestMatchers("/css/**")
-								.requestMatchers("/js/**")
-								.requestMatchers("/h2-console/**");
+				.ignoring()
+				// .requestMatchers("/ignore1", "/ignore2");
+				.requestMatchers("/webjars/**")
+				.requestMatchers("/css/**")
+				.requestMatchers("/js/**")
+				.requestMatchers("/h2-console/**");
 	}
 
 	/** Various security settings */
 	@Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests((request) -> request
-                //.requestMatchers("/user/**").hasRole("USER")
-                //.requestMatchers(HttpMethod.POST, "/user/**").hasRole("ADMIN")
-                //.requestMatchers(regexMatcher(".*\\?x=y")).hasRole("SPECIAL") // matches /any/path?x=y
-                .requestMatchers("/login").permitAll() // Direct link OK
-				.requestMatchers("/user/signup").permitAll()// Direct link OK
-				.anyRequest().authenticated() // Otherwise direct link NG
-            );
-			// Login process
-			http
-					.formLogin(form -> form
+	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http
+				.authorizeHttpRequests((request) -> request
+						// .requestMatchers("/user/**").hasRole("USER")
+						// .requestMatchers(HttpMethod.POST, "/user/**").hasRole("ADMIN")
+						// .requestMatchers(regexMatcher(".*\\?x=y")).hasRole("SPECIAL") // matches
+						// /any/path?x=y
+						.requestMatchers("/login").permitAll() // Direct link OK
+						.requestMatchers("/user/signup").permitAll()// Direct link OK
+						.anyRequest().authenticated() // Otherwise direct link NG
+				);
+		// Login process
+		http
+				.formLogin(form -> form
 						.loginProcessingUrl("/login") // Login process path
 						.loginPage("/login") // Specify login page
 						.failureUrl("/login?error") // Transition destination when login fails
 						.usernameParameter("userId") // Login page user ID
 						.passwordParameter("password") // Login page password
 						.defaultSuccessUrl("/user/list", true) // Transition destination after success
-					);
-					
-			// Disable CSRF measures (temporary)
-			http.csrf(csrf -> csrf.disable());
+				);
 
-        return http.build();
-    }
+		// Disable CSRF measures (temporary)
+		http.csrf(csrf -> csrf.disable());
+
+		return http.build();
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
 	@Bean
 	public UserDetailsService userDetailsService() {
 		// In-memory authentication
 		// The builder will ensure the passwords are encoded before saving in memory
-	UserBuilder users = User.withDefaultPasswordEncoder();
-	UserDetails user = users
-		.username("user")// add user
-		.password("user")
+		UserBuilder users = User.builder();
+		UserDetails user = users
+				.username("user")// add user
+				.password(passwordEncoder().encode("user"))
 				.roles("GENERAL")
 				.build();
-	UserDetails admin = users
-		.username("admin")// add admin
-		.password("admin")
-		.roles("ADMIN")
-		.build();
+		UserDetails admin = users
+				.username("admin")// add admin
+				.password(passwordEncoder().encode("admin"))
+				.roles("ADMIN")
+				.build();
+				System.out.println("user ENcode : -------------- "+ passwordEncoder().encode("user"));
+				System.out.println("password ENcode : -------------- "+ passwordEncoder().encode("password"));
 		return new InMemoryUserDetailsManager(user, admin);
 	}
-	
+
 }
