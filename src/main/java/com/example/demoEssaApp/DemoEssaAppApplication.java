@@ -94,14 +94,14 @@ public class DemoEssaAppApplication {
     return (args) -> {
       // save a few users
       Department dep = depRepository.findByDepartmentName("RH");
-      repository.save(new MUser("fee@hg.dn", "passer123", "amy", null, 22,1,"Admin", dep));
+      repository.save(new MUser("fee@hg.dn", "passer123", "amy", null, 22,1,"GENERAL", dep));
       Department dep1 = depRepository.findByDepartmentName("Info");
-      repository.save(new MUser("tres@hg.sn", "passer123", "bitz", null, 22, 1,"Admin", dep1));
-      repository.save(new MUser("igaye@essa.sn", "passer123", "issa", null, 22,  1,"Admin"));
-      repository.save(new MUser("mdiouf@essa.sn", "passer123", "michelle", null, 22,  1,"Admin"));
-      repository.save(new MUser("fciss@essa.sn", "passer123", "fallou", null, 22, 1, "Admin"));
-      repository.save(new MUser("mdiouf@essa.sn", "passer123", "fallou", null, 22, 1, "Admin"));
-      repository.save(new MUser("mdiouf@essa.sn", "passer123", "amy", null, 22,  1, "Admin"));
+      repository.save(new MUser("tres@hg.sn", "passer123", "bitz", null, 22, 1,"GENERAL", dep1));
+      repository.save(new MUser("igaye@essa.sn", "passer123", "issa", null, 22,  1,"GENERAL"));
+      repository.save(new MUser("mdiouf@essa.sn", "passer123", "michelle", null, 22,  1,"GENERAL"));
+      repository.save(new MUser("fciss@essa.sn", "passer123", "fallou", null, 22, 1, "ADMIN"));
+      repository.save(new MUser("mdiouf@essa.sn", "passer123", "fallou", null, 22, 1, "GENERAL"));
+      repository.save(new MUser("mdiouf@essa.sn", "passer123", "amy", null, 22,  1, "ADMIN"));
 
     };
   }
